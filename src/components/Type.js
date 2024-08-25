@@ -5,6 +5,7 @@ import Logo from "../assets/pokemon_small.png";
 import close from "../assets/close.png";
 import menu from "../assets/menu.png";
 import "./Type.css";
+import { Link } from 'react-router-dom';
 
 const Type = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -67,24 +68,53 @@ const Type = () => {
     { name: "WATER", className: "btn-water" }
   ];
 
+  const regions = [
+    { name: "KANTO", className: "btn-kanto" },
+    { name: "JOHTO", className: "btn-johto" },
+    { name: "HOENN", className: "btn-hoenn" },
+    { name: "SINNOH", className: "btn-sinnoh" },
+    { name: "TESELIA", className: "btn-teselia" },
+    { name: "KALOS", className: "btn-kalos" },
+    { name: "ALOLA", className: "btn-alola" },
+    { name: "GALAR", className: "btn-galar" }
+  ];
+
+  const search = [
+    { name: "SEARCH", className: "btn-search" },
+  ];
+
   return (
     <div className="pokemon-list-container">
       {/* <div className="header">
         <img src={Logo} alt="Pokemon Logo" className="pokemon-logo" />
       </div> */}
-      <div className="first-container">
+      <div className="first-containers">
         <div className="logoes">
           <div className="menu">
             <img src={Logo} alt="Logo" className="logo" />
           </div>
 
+          <Link to="/" className="menu"> 
           <div className="mode">
             <img src={close} alt="close Logo" className="close-logo" />
           </div>
+          </Link>
+         
         </div>
 
         <div className="mid-container">
-          <h1>TYPE</h1>
+          <h1
+            style={{
+              textShadow: `
+      2px 2px 0 #2C72B8,  /* Blue shadow - bottom right */
+      -2px -2px 0 #2C72B8, /* Blue shadow - top left */
+      2px -2px 0 #2C72B8,  /* Blue shadow - top right */
+      -2px 2px 0 #2C72B8   /* Blue shadow - bottom left */
+    `
+            }}
+          >
+            TYPE
+          </h1>
         </div>
 
         <div className="sec-container">
@@ -99,6 +129,48 @@ const Type = () => {
             ))}
           </div>
         </div>
+        <br />
+        <br />
+
+        <div className="last-contain">
+          <h1
+            style={{
+              textShadow: `
+      2px 2px 0 #2C72B8,  /* Blue shadow - bottom right */
+      -2px -2px 0 #2C72B8, /* Blue shadow - top left */
+      2px -2px 0 #2C72B8,  /* Blue shadow - top right */
+      -2px 2px 0 #2C72B8   /* Blue shadow - bottom left */
+    `
+            }}
+          >
+            GENERAION
+          </h1>
+        </div>
+        <br />
+
+        <div className="region-buttons-container">
+          {regions.map((region, index) => (
+            <button
+              key={index}
+              className={`btn region-btn ${region.className}`}
+            >
+              {region.name}
+            </button>
+          ))}
+        </div>
+<br />
+
+<div className="search-buttons-container">
+          {search.map((search, index) => (
+            <button
+              key={index}
+              className={`btn search-btn ${search.className}`}
+            >
+              {search.name}
+            </button>
+          ))}
+        </div>
+
       </div>
     </div>
   );

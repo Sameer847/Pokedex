@@ -35,9 +35,6 @@ const PokemonCard = ({ id, name, image }) => {
 
   return (
     <div className="pokemon-card">
-    {/* <div className="img">
-
-    </div> */}
       <img src={image} alt={name} />
       <div className="pokemon-info">
         <span>#{id}</span>

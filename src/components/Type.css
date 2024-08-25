@@ -3,11 +3,24 @@
   width: 385px;
   /* background: linear-gradient(180deg, #FF0000 0%, #882727 100%); */
 }
+
+h1 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 900;
+  font-size: 30px;
+  line-height: 35.16px;
+  text-align: center;
+  color: #FFCB05;
+  /* border: 2px solid #2C72B8; */
+
+
+}
+
 #root {
   justify-content: center;
     display: flex;
 }
-.first-container {
+.first-containers {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -42,12 +55,12 @@
 
 
 /* Custom styles for each Pokemon type button */
-.btn-bug { background-color: #A6B91A; color: white; }
-.btn-dark { background-color: #705746; color: white; }
+.btn-bug { background-color: #3BB900; color: white; }
+.btn-dark { background-color: #1C1C1C; color: white; }
 .btn-dragon { background-color: #6F35FC; color: white; }
 .btn-electric { background-color: #F7D02C; color: black; }
 .btn-fairy { background-color: #D685AD; color: white; }
-.btn-fighting { background-color: #C22E28; color: white; }
+.btn-fighting { background-color: #E40000; color: white; }
 .btn-fire { background-color: #EE8130; color: white; }
 .btn-flying { background-color: #A98FF3; color: white; }
 .btn-ghost { background-color: #735797; color: white; }
@@ -58,9 +71,9 @@
 .btn-plant { background-color: #48D1CC; color: white; }
 .btn-poison { background-color: #A33EA1; color: white; }
 .btn-psychic { background-color: #F95587; color: white; }
-.btn-rock { background-color: #B6A136; color: white; }
+.btn-rock { background-color: #E1B237; color: white; }
 .btn-steel { background-color: #B7B7CE; color: black; }
-.btn-water { background-color: #6390F0; color: white; }
+.btn-water { background-color: #00A0E4; color: white; }
 
 /* Adjust button size and spacing */
 .btn-pokemon-type {
@@ -76,5 +89,65 @@
   flex-wrap: wrap;
   justify-content: center;
 }
+
+
+/* Region button css start  */
+
+.region-buttons-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  /* justify-content: space-between; */
+  /* padding: 20px; */
+}
+
+.region-btn {
+  width: 134px;
+  height: 42px;
+  margin: 10px;
+  border: 3px solid;
+  border-radius: 7px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+  background-color: transparent;
+  transition: all 0.3s ease-in-out;
+}
+
+.search-btn {
+  width: 50%;
+  height: 42px;
+  margin: 10px;
+  border: 5px solid;
+  border-radius: 7px;
+  font-size: 18px;
+  font-weight: 800;
+  text-align: center;
+  color: white;
+  background-color: transparent;
+  transition: all 0.3s ease-in-out;
+  padding: 3px;
+}
+.close-logo {
+  width: 22px;
+}
+/* Custom styles for each button */
+.btn-kanto { border-color: #A0E515; color: #A0E515; }
+.btn-johto { border-color: #FF6347; color: #FF6347; }
+.btn-hoenn { border-color: #00FFFF; color: #00FFFF; }
+.btn-sinnoh { border-color: #FF4500; color: #FF4500; }
+.btn-teselia { border-color: #FF69B4; color: #FF69B4; }
+.btn-kalos { border-color: #FF8C00; color: #FF8C00; }
+.btn-alola { border-color: #FF7D54; color: #FF7D54; }
+.btn-galar { border-color: #9400D3; color: #9400D3; }
+
+.btn-search {border-color: #2C72B8; color: #2C72B8; background-color: #F7D02C;}
+
+.region-btn:hover {
+  background-color: #282c34;
+  color: white;
+}
+
 
 

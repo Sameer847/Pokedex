@@ -4,20 +4,16 @@ import SearchBar from "./SearchBar";
 import Logo from "../assets/pokemon.svg";
 import mode from "../assets/mode.png";
 import menu from "../assets/menu.png";
+import back from "../assets/back.png";
 import { Link } from 'react-router-dom';
 const PokemonList = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [pokemons, setPokemons] = useState([]);
   const [url, setUrl] = useState("https://pokeapi.co/api/v2/pokemon?limit=100");
-  const [isBlack, setIsBlack] = useState(false);
 
   useEffect(() => {
     fetchPokemons();
   }, [url]);
-
-  const handleClick = () => {
-    setIsBlack(prevState => !prevState);  // Toggle the color state
-  };
 
   const fetchPokemons = async () => {
     try {
@@ -50,7 +46,7 @@ const PokemonList = () => {
   );
 
   return (
-    <div className="pokemon-list-container" id="myPokemonList" style={{ background: isBlack ? 'black' : '' }}>
+    <div className="pokemon-list-container">
       <div className="header">
         <img src={Logo} alt="Pokemon Logo" className="pokemon-logo" />
       </div>
@@ -58,7 +54,7 @@ const PokemonList = () => {
       <div className="first-container">
       <Link to="/type" className="menu">
       <div className="menu">
-          <img src={menu} alt="Menu Logo" className="menu-logo" />
+          <img src={back} alt="Back Logo" className="back-logo" />
         </div>
       </Link>
       
@@ -67,7 +63,7 @@ const PokemonList = () => {
           <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         </div>
 
-        <div className="mode" onClick={handleClick}>
+        <div className="mode">
           <img src={mode} alt="Mode Logo" className="mode-logo" />
         </div>
       </div>

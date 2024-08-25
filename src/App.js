@@ -1,10 +1,11 @@
 import React from "react";
-import "./App.css"; // Add custom styles here
+import "./App.css"; 
 import 'bootstrap/dist/css/bootstrap.min.css'; // Bootstrap CSS first
 
 
 import PokemonList from "./components/PokemonList";
 import Type from "./components/Type";
+import AfterSearch from "./components/AfterSearch";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Logo from "./assets/pokemon.svg";
 function App() {
@@ -17,8 +18,9 @@ function App() {
       </header> */}
         {/* <PokemonList /> */}
         <Routes>
-          <Route path="/" element={<PokemonList />} /> {/* Pokemon list page */}
-          <Route path="/type" element={<Type />} /> {/* About page */}
+          <Route path="/" element={<PokemonList />} /> 
+          <Route path="/type" element={<Type />} /> 
+          <Route path="/afterSearch" element={<AfterSearch />} /> 
         </Routes>
         <br />
       </div>
