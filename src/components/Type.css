@@ -1,0 +1,80 @@
+.App {
+  text-align: center;
+  width: 385px;
+  /* background: linear-gradient(180deg, #FF0000 0%, #882727 100%); */
+}
+#root {
+  justify-content: center;
+    display: flex;
+}
+.first-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.App-header {
+  background-color: red;
+  padding: 20px;
+}
+
+.pokemon-logo {
+  width: 150px; 
+}
+
+.logoes {
+  display: flex;
+  justify-content: space-between;
+
+}
+
+
+
+.pokemon-list-container {
+  /* background-color: #f8f9fa; */
+  padding: 20px;
+   background: linear-gradient(180deg, #FF0000 0%, #882727 100%);
+   border-radius: 30px;
+}
+
+
+
+
+/* Custom styles for each Pokemon type button */
+.btn-bug { background-color: #A6B91A; color: white; }
+.btn-dark { background-color: #705746; color: white; }
+.btn-dragon { background-color: #6F35FC; color: white; }
+.btn-electric { background-color: #F7D02C; color: black; }
+.btn-fairy { background-color: #D685AD; color: white; }
+.btn-fighting { background-color: #C22E28; color: white; }
+.btn-fire { background-color: #EE8130; color: white; }
+.btn-flying { background-color: #A98FF3; color: white; }
+.btn-ghost { background-color: #735797; color: white; }
+.btn-grass { background-color: #7AC74C; color: white !important ; }
+.btn-ground { background-color: #E2BF65; color: black; }
+.btn-ice { background-color: #96D9D6; color: black; }
+.btn-normal { background-color: #A8A77A; color: black; }
+.btn-plant { background-color: #48D1CC; color: white; }
+.btn-poison { background-color: #A33EA1; color: white; }
+.btn-psychic { background-color: #F95587; color: white; }
+.btn-rock { background-color: #B6A136; color: white; }
+.btn-steel { background-color: #B7B7CE; color: black; }
+.btn-water { background-color: #6390F0; color: white; }
+
+/* Adjust button size and spacing */
+.btn-pokemon-type {
+  width: 120px;
+  margin: 5px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+/* Container to align buttons */
+.pokemon-button-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+
