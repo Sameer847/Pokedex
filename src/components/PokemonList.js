@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PokemonCard from "./PokemonCard";
+import "./PokemonCard.module.css"; 
 import SearchBar from "./SearchBar";
 import Logo from "../assets/pokemon.svg";
 import mode from "../assets/mode.png";

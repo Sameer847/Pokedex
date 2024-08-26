@@ -1,50 +1,57 @@
 import React, { useState, useEffect } from "react";
 import PokemonCard from "./PokemonCard";
 import SearchBar from "./SearchBar";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import Logo from "../assets/pokemon_small.png";
+import { setSelectedType } from "../redux/actions";
 import close from "../assets/close.png";
 import menu from "../assets/menu.png";
 import "./Type.css";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const Type = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [pokemons, setPokemons] = useState([]);
-  const [url, setUrl] = useState("https://pokeapi.co/api/v2/pokemon?limit=10");
+  const [selectedType, setSelectedTypeState] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    fetchPokemons();
-  }, [url]);
+  // const [searchTerm, setSearchTerm] = useState("");
+  // const [pokemons, setPokemons] = useState([]);
+  // const [url, setUrl] = useState("https://pokeapi.co/api/v2/pokemon?limit=10");
 
-  const fetchPokemons = async () => {
-    try {
-      const response = await fetch(url);
-      const data = await response.json();
-      // console.log('first Data' ,data);
+  // useEffect(() => {
+  //   fetchPokemons();
+  // }, [url]);
 
-      const fetchedPokemons = await Promise.all(
-        data.results.map(async (pokemon) => {
-          console.log("first Data", data);
-          const res = await fetch(pokemon.url);
-          const details = await res.json();
-          console.log(details);
+  // const fetchPokemons = async () => {
+  //   try {
+  //     const response = await fetch(url);
+  //     const data = await response.json();
+  //     // console.log('first Data' ,data);
 
-          return {
-            id: details.id,
-            name: details.name,
-            image: details.sprites.front_default
-          };
-        })
-      );
-      setPokemons(fetchedPokemons);
-    } catch (error) {
-      console.error("Error fetching Pokémon data:", error);
-    }
-  };
+  //     const fetchedPokemons = await Promise.all(
+  //       data.results.map(async (pokemon) => {
+  //         console.log("first Data", data);
+  //         const res = await fetch(pokemon.url);
+  //         const details = await res.json();
+  //         console.log(details);
 
-  const filteredPokemons = pokemons.filter((pokemon) =>
-    pokemon.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  //         return {
+  //           id: details.id,
+  //           name: details.name,
+  //           image: details.sprites.front_default
+  //         };
+  //       })
+  //     );
+  //     setPokemons(fetchedPokemons);
+  //   } catch (error) {
+  //     console.error("Error fetching Pokémon data:", error);
+  //   }
+  // };
+
+  // const filteredPokemons = pokemons.filter((pokemon) =>
+  //   pokemon.name.toLowerCase().includes(searchTerm.toLowerCase())
+  // );
 
   const types = [
     { name: "BUG", className: "btn-bug" },
@@ -79,9 +86,18 @@ const Type = () => {
     { name: "GALAR", className: "btn-galar" }
   ];
 
-  const search = [
-    { name: "SEARCH", className: "btn-search" },
-  ];
+  const search = [{ name: "SEARCH", className: "btn-search" }];
+
+  const handleTypeClick = (type) => {
+    setSelectedTypeState(type);
+    dispatch(setSelectedType(type)); // Store selected type in Redux
+  };
+
+  const handleSearchClick = () => {
+    if (selectedType) {
+      navigate(`/afterSearch/${selectedType.toLowerCase()}`); // Navigate to results page with selected type
+    }
+  };
 
   return (
     <div className="pokemon-list-container">
@@ -94,12 +110,11 @@ const Type = () => {
             <img src={Logo} alt="Logo" className="logo" />
           </div>
 
-          <Link to="/" className="menu"> 
-          <div className="mode">
-            <img src={close} alt="close Logo" className="close-logo" />
-          </div>
+          <Link to="/" className="menu">
+            <div className="mode">
+              <img src={close} alt="close Logo" className="close-logo" />
+            </div>
           </Link>
-         
         </div>
 
         <div className="mid-container">
@@ -123,6 +138,7 @@ const Type = () => {
               <button
                 key={index}
                 className={`btn btn-pokemon-type ${type.className}`}
+                onClick={() => handleTypeClick(type.name)}
               >
                 {type.name}
               </button>
@@ -158,11 +174,12 @@ const Type = () => {
             </button>
           ))}
         </div>
-<br />
+        <br />
 
-<div className="search-buttons-container">
+        <div className="search-buttons-container">
           {search.map((search, index) => (
             <button
+              onClick={handleSearchClick}
               key={index}
               className={`btn search-btn ${search.className}`}
             >
@@ -170,7 +187,6 @@ const Type = () => {
             </button>
           ))}
         </div>
-
       </div>
     </div>
   );
