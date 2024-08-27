@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 // import "./PokemonCard.css";
-import "./PokemonCard.module.css";
+// import "./PokemonCard.module.css";
+import styles from "./PokemonCard.module.css";
 
 const PokemonCard = ({ id, name, image }) => {
   // const [pokemons, setPokemons] = useState([]);
@@ -35,9 +36,9 @@ const PokemonCard = ({ id, name, image }) => {
   // };
 
   return (
-    <div className="pokemon-card">
+    <div className={styles.pokemon_card}>
       <img src={image} alt={name} />
-      <div className="pokemon-info">
+      <div className={styles.pokemon_info}>
         <span>#{id}</span>
         <h3>{name}</h3>
       </div>
