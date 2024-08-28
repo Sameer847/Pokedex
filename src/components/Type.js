@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Logo from "../assets/pokemon_small.png";
 import { setSelectedType } from "../redux/actions";
+import { setSelectedGeneration } from "../redux/actions";
 import close from "../assets/close.png";
 import menu from "../assets/menu.png";
 import "./Type.css";
@@ -12,6 +13,7 @@ import { Link } from "react-router-dom";
 
 const Type = () => {
   const [selectedType, setSelectedTypeState] = useState("");
+  const [selectedGeneration, setSelectedGenerationState] = useState(""); // New state for generation
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -76,14 +78,14 @@ const Type = () => {
   ];
 
   const regions = [
-    { name: "KANTO", className: "btn-kanto" },
-    { name: "JOHTO", className: "btn-johto" },
-    { name: "HOENN", className: "btn-hoenn" },
-    { name: "SINNOH", className: "btn-sinnoh" },
-    { name: "TESELIA", className: "btn-teselia" },
-    { name: "KALOS", className: "btn-kalos" },
-    { name: "ALOLA", className: "btn-alola" },
-    { name: "GALAR", className: "btn-galar" }
+    { name: "KANTO", value: "1", className: "btn-kanto" },
+    { name: "JOHTO", value: "2", className: "btn-johto" },
+    { name: "HOENN", value: "3", className: "btn-hoenn" },
+    { name: "SINNOH", value: "4", className: "btn-sinnoh" },
+    { name: "TESELIA", value: "5", className: "btn-teselia" },
+    { name: "KALOS", value: "6", className: "btn-kalos" },
+    { name: "ALOLA", value: "7", className: "btn-alola" },
+    { name: "GALAR", value: "8", className: "btn-galar" }
   ];
 
   const search = [{ name: "SEARCH", className: "btn-search" }];
@@ -93,9 +95,15 @@ const Type = () => {
     dispatch(setSelectedType(type)); // Store selected type in Redux
   };
 
+    const handleGenerationClick = (generation) => {
+      console.log("Dispatching generation:", generation);
+      setSelectedGenerationState(generation);
+    dispatch(setSelectedGeneration(generation)); // Store selected generation in Redux
+  };
+
   const handleSearchClick = () => {
-    if (selectedType) {
-      navigate(`/afterSearch/${selectedType.toLowerCase()}`); // Navigate to results page with selected type
+    if (selectedType || selectedGeneration) {
+      navigate(`/afterSearch/${selectedType.toLowerCase()}/${selectedGeneration}`); // Navigate to results page with selected type
     }
   };
 
@@ -169,6 +177,7 @@ const Type = () => {
             <button
               key={index}
               className={`btn region-btn ${region.className}`}
+              onClick={() => handleGenerationClick(region.value)}
             >
               {region.name}
             </button>
