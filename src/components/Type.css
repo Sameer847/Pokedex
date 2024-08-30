@@ -44,7 +44,7 @@ h1 {
 
 
 
-.pokemon-list-container {
+.pokemonListContainer {
   /* background-color: #f8f9fa; */
   padding: 20px;
    background: linear-gradient(180deg, #FF0000 0%, #882727 100%);
@@ -149,5 +149,14 @@ h1 {
   color: white;
 }
 
+.menuss {
+  align-items: center;
+  display: flex;
+}
+
+.modess {
+  align-items: center;
+  display: flex;
+}
 
 

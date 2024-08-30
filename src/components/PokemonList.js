@@ -4,42 +4,50 @@ import SearchBar from "./SearchBar";
 import Logo from "../assets/pokemon.svg";
 import mode from "../assets/mode.png";
 import menu from "../assets/menu.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux"; // Import useSelector for Redux
+import { useTheme } from '../components/ThemeContext'; // Import useTheme
+import style from  "./PokemonCard.module.css";
 
 const PokemonList = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [pokemons, setPokemons] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // Loading state
-  const [isBlack, setIsBlack] = useState(false);
+  // const [isBlack, setIsBlack] = useState(false);
 
   const selectedType = useSelector((state) => state.selectedType); // Get selected type from Redux
   const selectedGeneration = useSelector((state) => state.selectedGeneration); // Get selected generation from Redux
+
+  const { isBlack, toggleTheme } = useTheme(); // Use context
+
+  const navigate = useNavigate(); // Initialize useNavigate
 
   useEffect(() => {
     fetchPokemons();
   }, [selectedType, selectedGeneration]); // Re-fetch whenever selectedType or selectedGeneration changes
 
   const handleClick = () => {
-    setIsBlack((prevState) => !prevState); // Toggle the color state
+    toggleTheme(); 
   };
 
   // Fetch Pokémon data by selected generation
   const fetchPokemons = async () => {
     setIsLoading(true);
     try {
-      let generationUrl = `https://pokeapi.co/api/v2/pokemon?limit=300`; // Default: fetch all
+      let generationUrl = `https://pokeapi.co/api/v2/pokemon?limit=100`; // Default: fetch all
 
       // If generation is selected, update the URL to fetch that generation's Pokémon
       if (selectedGeneration) {
         generationUrl = `https://pokeapi.co/api/v2/generation/${selectedGeneration}`;
       }
 
-      console.log('Fetching from URL:', generationUrl);
+      console.log("Fetching from URL:", generationUrl);
 
       const response = await axios.get(generationUrl);
-      const data = selectedGeneration ? response.data.pokemon_species : response.data.results;
+      const data = selectedGeneration
+        ? response.data.pokemon_species
+        : response.data.results;
 
       // Fetch details for each Pokémon
       const fetchedPokemons = await Promise.all(
@@ -48,7 +56,7 @@ const PokemonList = () => {
             // If fetching generation-specific data, pokemon.url is directly available
             const speciesUrl = selectedGeneration ? pokemon.url : pokemon.url;
 
-            const speciesResponse = await axios.get(speciesUrl); // Fetch species data
+            const speciesResponse = await axios.get(speciesUrl); 
             const pokemonDetailsUrl = selectedGeneration
               ? speciesResponse.data.varieties[0].pokemon.url // Get the default variety's URL
               : pokemon.url; // Use the directly available URL for default fetch
@@ -58,15 +66,18 @@ const PokemonList = () => {
             // Filter by selected type (if a type is selected)
             const hasSelectedType = selectedType
               ? details.types.some(
-                  (type) => type.type.name.toLowerCase() === selectedType.toLowerCase()
+                  (type) =>
+                    type.type.name.toLowerCase() === selectedType.toLowerCase()
                 )
-              : true; // If no type is selected, include all Pokémon
+              : true; // Agar no type selected raha toh, include karenge all Pokemon
 
             if (hasSelectedType) {
               return {
                 id: details.id,
                 name: details.name,
-                image: details.sprites.front_default
+                image: details.sprites.front_default,
+                types: details.types.map((type) => type.type.name), 
+                moves: details.moves
               };
             }
             return null; // Exclude Pokémon that don't match the type
@@ -82,7 +93,7 @@ const PokemonList = () => {
     } catch (error) {
       console.error("Error fetching Pokémon data:", error);
     } finally {
-      setIsLoading(false); // Stop loading
+      setIsLoading(false); 
     }
   };
 
@@ -90,8 +101,22 @@ const PokemonList = () => {
     pokemon.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+   console.log('Filtered',filteredPokemons); // In handleCardClick
+  // Handle card click and navigate to AfterSearch with Pokémon details
+  const handleCardClick = (pokemon) => {
+    navigate("/afterSearch", { state: { pokemon } }); // Pass Pokémon details to AfterSearch
+    console.log("Clicked");
+  };
+
+  // console.log(pokemon); // In handleCardClick
+  // console.log(state);   // In AfterSearch.js
+
   return (
-    <div className="pokemon-list-container" id="myPokemonList" style={{ background: isBlack ? "black" : "" }}>
+    <div
+      className={style.pokemonListContainerss}
+      id="myPokemonList"
+      style={{ background: isBlack ? "black" : "" }}
+    >
       <div className="header">
         <img src={Logo} alt="Pokemon Logo" className="pokemon-logo" />
       </div>
@@ -112,13 +137,23 @@ const PokemonList = () => {
         </div>
       </div>
       <br />
-      <div className="pokemon-list">
+      <div className={style.pokemonlist}>
         {isLoading ? (
           <p>Loading Pokémon...</p>
         ) : filteredPokemons.length > 0 ? (
-          filteredPokemons.slice(0, 10).map((pokemon) => (
-            <PokemonCard key={pokemon.id} id={pokemon.id} name={pokemon.name} image={pokemon.image} />
-          ))
+          filteredPokemons
+            .slice(0, 10)
+            .map((pokemon) => (
+              <PokemonCard
+                key={pokemon.id}
+                id={pokemon.id}
+                name={pokemon.name}
+                image={pokemon.image}
+                types={pokemon.types}
+                moves={pokemon.moves}
+                onClick={() => handleCardClick(pokemon)}
+              />
+            ))
         ) : (
           <p>No Pokémon found</p>
         )}

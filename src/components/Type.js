@@ -8,14 +8,16 @@ import { setSelectedType } from "../redux/actions";
 import { setSelectedGeneration } from "../redux/actions";
 import close from "../assets/close.png";
 import menu from "../assets/menu.png";
-import "./Type.css";
+import  "./Type.css";
 import { Link } from "react-router-dom";
+import { useTheme } from '../components/ThemeContext'; // Import useTheme
 
 const Type = () => {
   const [selectedType, setSelectedTypeState] = useState("");
   const [selectedGeneration, setSelectedGenerationState] = useState(""); // New state for generation
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { isBlack } = useTheme(); // Use context
 
   // const [searchTerm, setSearchTerm] = useState("");
   // const [pokemons, setPokemons] = useState([]);
@@ -103,23 +105,26 @@ const Type = () => {
 
   const handleSearchClick = () => {
     if (selectedType || selectedGeneration) {
-      navigate(`/afterSearch/${selectedType.toLowerCase()}/${selectedGeneration}`); // Navigate to results page with selected type
+      // navigate(`/afterSearch/${selectedType.toLowerCase()}/${selectedGeneration}`); // Navigate to results page with selected type
+      // navigate("/", { state: { type: selectedType, generation: selectedGeneration } }); // Navigate to home page with state
+      // navigate(`/${selectedType.toLowerCase()}/${selectedGeneration}`); // Navigate to home page with selected type and generation in the URL
+      navigate(`/`); // Navigate to home page with selected type and generation in the URL
     }
   };
 
   return (
-    <div className="pokemon-list-container">
+    <div className="pokemonListContainer" style={{ background: isBlack ? 'black' : '' }}>
       {/* <div className="header">
         <img src={Logo} alt="Pokemon Logo" className="pokemon-logo" />
       </div> */}
       <div className="first-containers">
         <div className="logoes">
-          <div className="menu">
+          <div className="menuss">
             <img src={Logo} alt="Logo" className="logo" />
           </div>
 
           <Link to="/" className="menu">
-            <div className="mode">
+            <div className="modess">
               <img src={close} alt="close Logo" className="close-logo" />
             </div>
           </Link>

@@ -20,7 +20,8 @@ function App() {
         <Routes>
           <Route path="/" element={<PokemonList />} /> 
           <Route path="/type" element={<Type />} /> 
-          <Route path="/afterSearch/:type" element={<AfterSearch />} /> 
+          {/* <Route path="/afterSearch/:type" element={<AfterSearch />} />  */}
+          <Route path="/afterSearch" element={<AfterSearch />} /> 
         </Routes>
         <br />
       </div>
