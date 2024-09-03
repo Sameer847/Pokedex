@@ -48,6 +48,7 @@ const AfterSearch = () => {
             name={pokemon.name}
             image={pokemon.image}
             types={pokemon.types} 
+            // moves={pokemon.moves}
           />
         ) : (
           <p>No Pokémon data available.</p>
