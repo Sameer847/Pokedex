@@ -44,6 +44,9 @@
   padding: 20px;
    background: linear-gradient(180deg, #FF0000 0%, #882727 100%);
    border-radius: 30px;
+
+   height: 80vh; /* or 100vh if it should take the entire viewport */
+  overflow-y: scroll;
 }
 
 .search-bar {
