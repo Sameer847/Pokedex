@@ -164,3 +164,15 @@
   /* width: 67%; */
 }
 }
+
+
+/* For tablet view  */
+
+@media (max-width: 1024px) and (min-width: 768px) {
+  /* Styles for screens between 425px and 768px */
+  .pokemon_info { 
+    margin-top: -2%;
+    /* margin-top: -51px !important; */
+  }
+}
+
